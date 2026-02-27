@@ -16,8 +16,8 @@
     --gradient-glow: linear-gradient(135deg, rgba(13,148,136,0.12) 0%, rgba(99,102,241,0.10) 50%, rgba(59,130,246,0.08) 100%);
     --section-band: #EEF3FF;
     --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-    --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
-    --shadow-lg: 0 12px 40px rgba(15,23,42,0.10), 0 4px 12px rgba(15,23,42,0.06);
+    --shadow-md: 0 6px 18px rgba(15,23,42,0.07), 0 2px 8px rgba(15,23,42,0.04);
+    --shadow-lg: 0 10px 32px rgba(15,23,42,0.09), 0 3px 10px rgba(15,23,42,0.05);
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 20px;
@@ -50,7 +50,7 @@
   @media (max-width: 768px) { .container { padding: 0 16px; } }
 
   .section {
-    padding: 96px 0;
+    padding: 88px 0;
   }
   @media (max-width: 768px) { .section { padding: 64px 0; } }
 
@@ -129,9 +129,8 @@
   .icon {
     width: 20px;
     height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
+    vertical-align: middle;
     color: currentColor;
     flex-shrink: 0;
   }
@@ -180,12 +179,12 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: none;
-    border-radius: 50px;
+    border: 1px solid transparent;
+    border-radius: 14px;
     font-family: inherit;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     text-decoration: none;
     white-space: nowrap;
   }
@@ -193,9 +192,9 @@
   .btn-primary {
     background: var(--text-primary);
     color: #fff;
-    padding: 12px 24px;
+    padding: 12px 22px;
     font-size: 15px;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
@@ -207,7 +206,7 @@
   .btn-secondary {
     background: transparent;
     color: var(--text-primary);
-    padding: 12px 24px;
+    padding: 12px 22px;
     font-size: 15px;
     border: 1.5px solid var(--border);
   }
@@ -221,20 +220,21 @@
   .btn-teal {
     background: var(--accent-teal);
     color: #fff;
-    padding: 14px 28px;
+    padding: 14px 26px;
     font-size: 16px;
-    box-shadow: 0 4px 20px rgba(13,148,136,0.28);
+    box-shadow: 0 4px 16px rgba(13,148,136,0.24);
   }
 
   .btn-teal:hover {
     background: #0F766E;
     transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(13,148,136,0.36);
+    box-shadow: 0 8px 24px rgba(13,148,136,0.28);
   }
 
   .btn-sm {
-    padding: 8px 18px;
+    padding: 8px 16px;
     font-size: 13px;
+    border-radius: 10px;
   }
 
   /* ============================================================
@@ -243,11 +243,11 @@
   .chip {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     background: var(--surface);
     border: 1.5px solid var(--border-soft);
     border-radius: 50px;
-    padding: 5px 14px;
+    padding: 6px 13px;
     font-size: 12.5px;
     font-weight: 500;
     color: var(--text-secondary);
@@ -488,22 +488,31 @@
   }
 
   .hero-media-bottom {
-    background: var(--section-band);
+    background: var(--surface);
     border-top: 1.5px solid var(--border);
-    padding: 14px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
     font-size: 12px;
   }
 
-  @media (max-width: 640px) { .hero-media-bottom { padding: 12px 20px; } }
+  @media (max-width: 640px) { .hero-media-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
   .media-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 12px 6px;
+    border-right: 1px solid var(--border-soft);
+  }
+
+  .media-stat:nth-child(4),
+  .media-stat:nth-child(2n):last-child { border-right: 0; }
+
+  @media (max-width: 640px) {
+    .media-stat:nth-child(2n) { border-right: 0; }
+    .media-stat:nth-child(-n+2) { border-bottom: 1px solid var(--border-soft); }
   }
 
   .media-stat strong {
@@ -1409,3 +1418,8 @@
     background: var(--border);
     margin: 0;
   }
+
+
+.announcement-bar a .icon { width: 14px; height: 14px; margin-left: 4px; }
+
+.sticky-cta-btn .icon { width: 17px; height: 17px; }
