@@ -5,21 +5,21 @@ const CONTENT = {
   hirer: {
     hero: {
       eyebrow: '',
-      headline: 'Find great talent. Get found by great teams.',
-      sub: 'Workbase connects hiring teams with quality-vetted, AI-native digital operators through a standards-first matching system designed to improve signal, tighten fit, and reduce hiring waste.',
-      chips: ['Quality-vetted', 'AI-native workflows', 'Standards-first matching'],
+      headline: 'Tell us what you need. We’ll send you a shortlist you can trust.',
+      sub: 'You’re not looking for more options. You’re looking for one operator who can deliver.\nWorkbase screens for quality and AI-ready workflow, then matches for fit.',
+      chips: ['Quality-screened', 'AI-native workflow', 'Shortlist-first'],
       primaryCta: 'Get Early Access →',
       secondaryCta: 'See the Operator Tracks ↓',
-      microcopy: 'Phased onboarding. We\'re taking our time — so you don\'t have to.',
+      microcopy: 'Phased onboarding. We’re moving carefully so your first shortlist is worth your time.',
       helper: 'For teams hiring across Web, Design, Video, Motion, Marketing Ops, and Data &amp; Automation.',
     },
     process: {
-      title: 'How Workbase reduces hiring noise',
-      sub: 'We designed Workbase to replace volume-heavy browsing with a more precise, standards-first hiring flow built for modern, AI-enabled execution.',
+      title: 'Here’s how you get a stronger hire, faster.',
+      sub: '',
       steps: [
-        { title: 'Define the role', desc: 'Share the scope, expectations, timeline, and what good looks like.' },
-        { title: 'Filter for signal', desc: 'Workbase applies quality and fit criteria before matching begins.' },
-        { title: 'Receive a stronger shortlist', desc: 'Get a smaller, more relevant set of operators matched to the role.' },
+        { title: 'Describe the role', desc: 'Tell us the outcome, timeline, and what good looks like.' },
+        { title: 'We screen for quality', desc: 'No noisy profiles. Only operators who meet the standard.' },
+        { title: 'You get a shortlist', desc: 'Fewer names. Better fit. Faster decisions.' },
       ],
     },
     midCta: {
@@ -27,37 +27,43 @@ const CONTENT = {
       sub: 'We\'re onboarding in phases and prioritizing teams that value quality, fit, and serious execution.',
       btn: 'Get Early Access →',
     },
-    problemIntro: 'Most teams don\'t have a talent shortage. They have a signal problem.',
-    tracksHelper: 'Explore the tracks available for early-access matching.',
+    problemIntro: 'You don’t have a talent shortage. You have a filtering problem.',
+    problemBody: [
+      'Most platforms give you volume, then leave you to do the hard part: filtering.',
+      'Workbase does the filtering upfront so you spend your time interviewing serious options, not chasing maybes.'
+    ],
+    tracksTitle: 'Six tracks. One standard.',
+    tracksSubtitle: 'Pick the track you’re hiring for. We’ll handle the filtering.',
+    tracksHelper: 'Pick the track you’re hiring for. We’ll handle the filtering.',
     trustEmphasis: 'Built for teams that care about hiring quality, not marketplace volume.',
     form: {
-      eyebrow: 'Early access for hiring teams',
-      headline: 'Hire with a stronger signal base',
-      body: 'Join Workbase early to access quality-vetted, AI-native digital operators across six tracks through a standards-first matching system built for better fit and stronger hiring decisions.',
+      eyebrow: 'Early access for hiring',
+      headline: 'Ready to stop browsing and start hiring?',
+      body: 'Join early access and we’ll onboard you in phases.\nWhen your slot opens, you’ll be able to hire from six AI-native operator tracks.',
       microcopy: 'No spam. Early-access updates only. Phased onboarding.',
       submitBtn: 'Get Early Access →',
-      successMsg: 'We\'ll share updates as early access opens for hiring teams.',
+      successMsg: 'You’re on the list. We’ll reach out when your early access slot opens.',
     },
     faqOrder: [1, 2, 3, 4, 5, 6],
   },
   talent: {
     hero: {
-      eyebrow: 'Standards-first operator network',
-      headline: 'Find great talent. Get found by great teams.',
-      sub: 'Workbase gives skilled, AI-native digital operators a stronger path to serious opportunities through quality screening, curated visibility, and fit-focused matching.',
-      chips: ['Skill first', 'AI-enabled execution', 'Curated visibility'],
-      primaryCta: 'Get Early Access →',
+      eyebrow: '',
+      headline: 'If you can deliver, you shouldn’t have to beg for attention.',
+      sub: 'Workbase is built for operators who take their craft seriously and use AI to move faster.\nWe screen for quality, then help you get matched to teams that value it.',
+      chips: ['Skill-first', 'AI-enabled execution', 'Serious opportunities'],
+      primaryCta: 'Join Early Access →',
       secondaryCta: 'See the Operator Tracks ↓',
-      microcopy: 'Phased onboarding. We\'re taking our time — so you don\'t have to.',
+      microcopy: 'Phased onboarding. We’re curating early so the work stays high-quality.',
       helper: 'For operators with strong craft and AI-enabled workflows across six tracks.',
     },
     process: {
-      title: 'How Workbase helps strong operators stand out',
-      sub: 'Workbase is built to reward execution quality, craft strength, and AI-enabled workflow readiness — not just profile volume.',
+      title: 'How you get seen for quality.',
+      sub: '',
       steps: [
-        { title: 'Apply as an operator', desc: 'Select your track and submit your profile for early access.' },
-        { title: 'Pass screening', desc: 'Workbase reviews for skill quality, readiness, and role alignment.' },
-        { title: 'Access serious opportunities', desc: 'Get curated visibility for projects and teams where standards matter.' },
+        { title: 'Apply to your track', desc: 'Choose where you fit and submit your profile.' },
+        { title: 'Pass screening', desc: 'We check for real execution, not talk.' },
+        { title: 'Get matched to better work', desc: 'Not endless gigs. Serious teams. Clear expectations.' },
       ],
     },
     midCta: {
@@ -65,16 +71,22 @@ const CONTENT = {
       sub: 'We\'re onboarding operators in phases and prioritizing professionals with strong craft and AI-native workflows.',
       btn: 'Get Early Access →',
     },
-    problemIntro: 'Most skilled operators don\'t have a capability problem. They have a visibility problem.',
-    tracksHelper: 'Select your track when applying for early access.',
+    problemIntro: 'You’re not overpriced. You’re just in the wrong room.',
+    problemBody: [
+      'Crowded platforms reward volume and low pricing.',
+      'Workbase is building a smaller room with higher standards, so quality work gets the visibility it deserves.'
+    ],
+    tracksTitle: 'Six tracks. One standard.',
+    tracksSubtitle: 'Pick your track. If you meet the standard, you’ll be seen.',
+    tracksHelper: 'Pick your track. If you meet the standard, you’ll be seen.',
     trustEmphasis: 'Built for operators who want to be evaluated on execution quality, not platform noise.',
     form: {
       eyebrow: 'Early access for operators',
-      headline: 'Access serious opportunities through a higher standard network',
-      body: 'Apply to join Workbase across six AI-native operator tracks and get considered for curated opportunities where quality, fit, and execution standards matter.',
+      headline: 'Want serious teams to find you?',
+      body: 'Join early access. Choose your operator track.\nIf you meet the standard, you’ll get visibility where it actually matters.',
       microcopy: 'No spam. Early-access updates only. Phased onboarding.',
-      submitBtn: 'Get Early Access →',
-      successMsg: 'We\'ll share updates as early access opens for your operator track.',
+      submitBtn: 'Join Early Access →',
+      successMsg: 'You’re on the list. We’ll reach out when early access opens for your track.',
     },
     faqOrder: [1, 2, 3, 4, 5, 6],
   }
@@ -116,7 +128,7 @@ let isAnimating = false;
 
 // Submit label helper (role-aware)
 function getSubmitLabel(role) {
-  if (role === 'talent') return 'Get Early Access →';
+  if (role === 'talent') return 'Join Early Access →';
   if (role === 'partner') return 'Request Partner Access';
   return 'Get Early Access →';
 }
@@ -168,6 +180,11 @@ function setAudienceMode(mode, animate = true) {
     midCTASub: document.getElementById('mid-cta-sub'),
     midCTABtn: document.getElementById('mid-cta-btn'),
     problemIntro: document.getElementById('problem-intro'),
+    problemHeadline: document.querySelector('.problem-visual .pv-headline'),
+    problemBodyOne: document.querySelector('.problem-visual .pv-body:nth-of-type(1)'),
+    problemBodyTwo: document.querySelector('.problem-visual .pv-body:nth-of-type(2)'),
+    tracksTitle: document.querySelector('.tracks-header .section-title'),
+    tracksSubtitle: document.querySelector('.tracks-header .section-subtitle'),
     tracksHelper: document.getElementById('tracks-helper'),
     trustEmphasis: document.getElementById('trust-emphasis'),
     formEyebrow: document.getElementById('form-eyebrow'),
@@ -204,6 +221,11 @@ function setAudienceMode(mode, animate = true) {
     dynamicEls.midCTABtn.textContent = m.btn;
 
     dynamicEls.problemIntro.textContent = data.problemIntro;
+    if (dynamicEls.problemHeadline) dynamicEls.problemHeadline.textContent = data.problemIntro;
+    if (dynamicEls.problemBodyOne) dynamicEls.problemBodyOne.textContent = data.problemBody[0];
+    if (dynamicEls.problemBodyTwo) dynamicEls.problemBodyTwo.textContent = data.problemBody[1];
+    if (dynamicEls.tracksTitle) dynamicEls.tracksTitle.textContent = data.tracksTitle;
+    if (dynamicEls.tracksSubtitle) dynamicEls.tracksSubtitle.textContent = data.tracksSubtitle;
     dynamicEls.tracksHelper.textContent = data.tracksHelper;
     dynamicEls.trustEmphasis.textContent = data.trustEmphasis;
 
@@ -228,7 +250,7 @@ function setAudienceMode(mode, animate = true) {
 
     // Update sticky CTA label (mobile)
     const stickyText = document.getElementById('sticky-cta-text');
-    if (stickyText) stickyText.textContent = 'Get Early Access →';
+    if (stickyText) stickyText.textContent = data.form.submitBtn;
 
     // Re-render FAQ
     renderFAQ(mode);
