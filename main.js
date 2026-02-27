@@ -4,13 +4,13 @@
 const CONTENT = {
   hirer: {
     hero: {
-      eyebrow: 'Quality-first talent infrastructure',
-      headline: 'Hire proven digital operators without sorting through marketplace noise.',
+      eyebrow: '',
+      headline: 'Find great talent. Get found by great teams.',
       sub: 'Workbase connects hiring teams with quality-vetted, AI-native digital operators through a standards-first matching system designed to improve signal, tighten fit, and reduce hiring waste.',
       chips: ['Quality-vetted', 'AI-native workflows', 'Standards-first matching'],
-      primaryCta: 'Get Early Access',
-      secondaryCta: 'Explore Operator Tracks',
-      microcopy: 'Phased onboarding. Built for serious teams and serious operators.',
+      primaryCta: 'Get Early Access →',
+      secondaryCta: 'See the Operator Tracks ↓',
+      microcopy: 'Phased onboarding. We\'re taking our time — so you don\'t have to.',
       helper: 'For teams hiring across Web, Design, Video, Motion, Marketing Ops, and Data &amp; Automation.',
     },
     process: {
@@ -25,7 +25,7 @@ const CONTENT = {
     midCta: {
       headline: 'Join early and help shape the next standard for digital hiring.',
       sub: 'We\'re onboarding in phases and prioritizing teams that value quality, fit, and serious execution.',
-      btn: 'Get Early Access',
+      btn: 'Get Early Access →',
     },
     problemIntro: 'Most teams don\'t have a talent shortage. They have a signal problem.',
     tracksHelper: 'Explore the tracks available for early-access matching.',
@@ -35,20 +35,20 @@ const CONTENT = {
       headline: 'Hire with a stronger signal base',
       body: 'Join Workbase early to access quality-vetted, AI-native digital operators across six tracks through a standards-first matching system built for better fit and stronger hiring decisions.',
       microcopy: 'No spam. Early-access updates only. Phased onboarding.',
-      submitBtn: 'Get Early Access',
+      submitBtn: 'Get Early Access →',
       successMsg: 'We\'ll share updates as early access opens for hiring teams.',
     },
-    faqOrder: [1, 3, 4, 5, 6, 8, 7, 9, 10, 2],
+    faqOrder: [1, 2, 3, 4, 5, 6],
   },
   talent: {
     hero: {
       eyebrow: 'Standards-first operator network',
-      headline: 'Get seen for the quality of your work, not lost in marketplace noise.',
+      headline: 'Find great talent. Get found by great teams.',
       sub: 'Workbase gives skilled, AI-native digital operators a stronger path to serious opportunities through quality screening, curated visibility, and fit-focused matching.',
       chips: ['Skill first', 'AI-enabled execution', 'Curated visibility'],
-      primaryCta: 'Apply for Early Access',
-      secondaryCta: 'View Operator Tracks',
-      microcopy: 'Phased onboarding. Built for operators who know the craft and use AI responsibly.',
+      primaryCta: 'Get Early Access →',
+      secondaryCta: 'See the Operator Tracks ↓',
+      microcopy: 'Phased onboarding. We\'re taking our time — so you don\'t have to.',
       helper: 'For operators with strong craft and AI-enabled workflows across six tracks.',
     },
     process: {
@@ -63,7 +63,7 @@ const CONTENT = {
     midCta: {
       headline: 'Join early and position yourself for higher-standard opportunities.',
       sub: 'We\'re onboarding operators in phases and prioritizing professionals with strong craft and AI-native workflows.',
-      btn: 'Apply for Early Access',
+      btn: 'Get Early Access →',
     },
     problemIntro: 'Most skilled operators don\'t have a capability problem. They have a visibility problem.',
     tracksHelper: 'Select your track when applying for early access.',
@@ -73,10 +73,10 @@ const CONTENT = {
       headline: 'Access serious opportunities through a higher standard network',
       body: 'Apply to join Workbase across six AI-native operator tracks and get considered for curated opportunities where quality, fit, and execution standards matter.',
       microcopy: 'No spam. Early-access updates only. Phased onboarding.',
-      submitBtn: 'Apply for Early Access',
+      submitBtn: 'Get Early Access →',
       successMsg: 'We\'ll share updates as early access opens for your operator track.',
     },
-    faqOrder: [1, 2, 5, 6, 3, 4, 7, 9, 10, 8],
+    faqOrder: [1, 2, 3, 4, 5, 6],
   }
 };
 
@@ -106,22 +106,6 @@ const FAQ_ITEMS = {
     q: 'Does AI use replace core skill requirements?',
     a: 'No. Workbase\'s standard is skill first, with AI used as a workflow advantage, not a substitute for competence.'
   },
-  7: {
-    q: 'Is Workbase only for Nigeria?',
-    a: 'Workbase is Nigeria-rooted, with a long-term vision for broader hiring and talent opportunities.'
-  },
-  8: {
-    q: 'How is Workbase different from freelance marketplaces?',
-    a: 'Workbase is designed to reduce noise through standards-first screening and fit-focused matching, rather than volume-based profile browsing.'
-  },
-  9: {
-    q: 'Is there a cost to join the waitlist?',
-    a: 'No. Joining the waitlist is free.'
-  },
-  10: {
-    q: 'When does early access begin?',
-    a: 'Early access will roll out in phases. Waitlist members will receive updates as onboarding opens.'
-  },
 };
 
 // ============================================================
@@ -132,9 +116,9 @@ let isAnimating = false;
 
 // Submit label helper (role-aware)
 function getSubmitLabel(role) {
-  if (role === 'talent') return 'Apply for Early Access';
+  if (role === 'talent') return 'Get Early Access →';
   if (role === 'partner') return 'Request Partner Access';
-  return 'Get Early Access';
+  return 'Get Early Access →';
 }
 
 // ============================================================
@@ -195,7 +179,7 @@ function setAudienceMode(mode, animate = true) {
 
   const updateContent = () => {
     const h = data.hero;
-    dynamicEls.eyebrow.textContent = h.eyebrow;
+    if (dynamicEls.eyebrow) dynamicEls.eyebrow.textContent = h.eyebrow;
     dynamicEls.headline.textContent = h.headline;
     dynamicEls.sub.textContent = h.sub;
     dynamicEls.chips.innerHTML = h.chips.map(c => `<span class="chip">${c}</span>`).join('');
@@ -244,7 +228,7 @@ function setAudienceMode(mode, animate = true) {
 
     // Update sticky CTA label (mobile)
     const stickyText = document.getElementById('sticky-cta-text');
-    if (stickyText) stickyText.textContent = (mode === 'talent') ? 'Apply for Early Access' : 'Get Early Access';
+    if (stickyText) stickyText.textContent = 'Get Early Access →';
 
     // Re-render FAQ
     renderFAQ(mode);
@@ -442,7 +426,7 @@ async function handleSubmit(e) {
     errDiv.textContent = 'Something went wrong. Please try again or email us at hello@workbase.africa';
     errDiv.style.display = 'block';
     btn.disabled = false;
-    btn.textContent = CONTENT[audienceMode]?.form?.submitBtn || 'Get Early Access';
+    btn.textContent = CONTENT[audienceMode]?.form?.submitBtn || 'Get Early Access →';
   }
 }
 
