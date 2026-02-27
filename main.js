@@ -15,7 +15,7 @@ const CONTENT = {
     },
     process: {
       title: 'Here’s how you get a stronger hire, faster.',
-      sub: '',
+      sub: 'You tell us what good looks like. We do the filtering.',
       steps: [
         { title: 'Describe the role', desc: 'Tell us the outcome, timeline, and what good looks like.' },
         { title: 'We screen for quality', desc: 'No noisy profiles. Only operators who meet the standard.' },
@@ -59,7 +59,7 @@ const CONTENT = {
     },
     process: {
       title: 'How you get seen for quality.',
-      sub: '',
+      sub: 'If your work is strong, the right teams should actually see it.',
       steps: [
         { title: 'Apply to your track', desc: 'Choose where you fit and submit your profile.' },
         { title: 'Pass screening', desc: 'We check for real execution, not talk.' },
@@ -158,6 +158,10 @@ function setAudienceMode(mode, animate = true) {
 
   const duration = (animate && !prefersReducedMotion) ? 0.18 : 0;
   const yAmt = 10;
+  const heroHeightLockTarget = document.getElementById('hero-content')
+    || document.getElementById('hero-text')
+    || document.querySelector('.hero-inner')
+    || document.getElementById('hero');
 
   const dynamicEls = {
     eyebrow: document.getElementById('hero-eyebrow'),
@@ -258,11 +262,33 @@ function setAudienceMode(mode, animate = true) {
 
   if (animate && !prefersReducedMotion) {
     const targets = Object.values(dynamicEls).filter(Boolean);
+    const measuredHeight = heroHeightLockTarget ? heroHeightLockTarget.offsetHeight : 0;
+
+    if (heroHeightLockTarget && measuredHeight) {
+      heroHeightLockTarget.style.height = `${measuredHeight}px`;
+      heroHeightLockTarget.style.overflow = 'hidden';
+    }
+
     gsap.to(targets, {
       opacity: 0, y: -yAmt, duration,
       onComplete: () => {
         updateContent();
-        gsap.to(targets, { opacity: 1, y: 0, duration, stagger: 0.015 });
+
+        const nextHeight = heroHeightLockTarget ? heroHeightLockTarget.scrollHeight : 0;
+
+        if (heroHeightLockTarget && nextHeight) {
+          gsap.to(heroHeightLockTarget, {
+            height: nextHeight,
+            duration: 0.24,
+            ease: 'power2.out',
+            onComplete: () => {
+              heroHeightLockTarget.style.height = 'auto';
+              heroHeightLockTarget.style.overflow = '';
+            }
+          });
+        }
+
+        gsap.to(targets, { opacity: 1, y: 0, duration, stagger: 0.015, ease: 'power2.out' });
       }
     });
   } else {
@@ -498,6 +524,8 @@ function initScrollAnimations() {
   gsap.utils.toArray('.fade-up').forEach(el => {
     // Skip hero elements (handled separately)
     if (el.closest('#hero')) return;
+    // Skip cards handled by grid-level animations
+    if (el.closest('.tracks-grid') || el.closest('.trust-grid')) return;
 
     gsap.fromTo(el,
       { opacity: 0, y: 28 },
@@ -571,19 +599,47 @@ function initScrollAnimations() {
     }
   );
 
-  // Tracks grid stagger
-  gsap.utils.toArray('.track-card').forEach((card, i) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 24 },
+  // Tracks grid reveal (single trigger)
+  const trackCards = gsap.utils.toArray('.tracks-grid .track-card');
+  if (trackCards.length) {
+    gsap.fromTo(trackCards,
+      { opacity: 0, y: 22 },
       {
-        opacity: 1, y: 0,
-        duration: 0.45,
-        ease: 'power3.out',
-        delay: (i % 3) * 0.08,
-        scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+        opacity: 1,
+        y: 0,
+        duration: 0.68,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.tracks-grid',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+          once: true,
+        }
       }
     );
-  });
+  }
+
+  // Trust grid reveal (single trigger)
+  const trustCards = gsap.utils.toArray('.trust-grid .trust-card');
+  if (trustCards.length) {
+    gsap.fromTo(trustCards,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.66,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.trust-grid',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+          once: true,
+        }
+      }
+    );
+  }
 }
 
 // ============================================================
@@ -592,16 +648,38 @@ function initScrollAnimations() {
 function initStickyCTA() {
   const cta = document.getElementById('sticky-cta');
   const hero = document.getElementById('hero');
+  const waitlist = document.getElementById('waitlist');
 
-  const observer = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) {
+  if (!cta || !hero || !waitlist) return;
+
+  let heroVisible = true;
+  let waitlistVisible = false;
+
+  const syncStickyVisibility = () => {
+    if (waitlistVisible) {
+      cta.classList.remove('visible');
+      return;
+    }
+
+    if (!heroVisible) {
       cta.classList.add('visible');
     } else {
       cta.classList.remove('visible');
     }
+  };
+
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    heroVisible = entry.isIntersecting;
+    syncStickyVisibility();
   }, { threshold: 0.1 });
 
-  observer.observe(hero);
+  const waitlistObserver = new IntersectionObserver(([entry]) => {
+    waitlistVisible = entry.isIntersecting;
+    syncStickyVisibility();
+  }, { threshold: 0.15 });
+
+  heroObserver.observe(hero);
+  waitlistObserver.observe(waitlist);
 }
 
 // ============================================================
