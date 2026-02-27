@@ -54,7 +54,18 @@
   <div class="container">
     <!-- AUDIENCE TOGGLE -->
     <div class="toggle-wrap">
-      <div class="toggle-group" role="group" aria-label="Select audience">
+      <p class="path-selector-label">Choose your path</p>
+      <div class="path-selector" role="radiogroup" aria-label="Choose your path">
+        <button class="path-card active" data-mode="hirer" aria-selected="true" type="button">
+          <span class="path-card-title">I’m hiring</span>
+          <span class="path-card-sub">Tell us what you need and get a stronger shortlist.</span>
+        </button>
+        <button class="path-card" data-mode="talent" aria-selected="false" type="button">
+          <span class="path-card-title">I’m an operator</span>
+          <span class="path-card-sub">Join the network and get matched for serious work.</span>
+        </button>
+      </div>
+      <div class="toggle-group sr-only" role="group" aria-label="Select audience">
         <button class="toggle-btn active" id="toggle-hirer" data-mode="hirer" aria-pressed="true">For Hirers</button>
         <button class="toggle-btn" id="toggle-talent" data-mode="talent" aria-pressed="false">For Talent</button>
       </div>
@@ -75,6 +86,23 @@
         <a href="#waitlist" class="btn btn-teal" id="hero-primary-cta">Get Early Access →</a>
         <a href="#tracks" class="btn btn-secondary" id="hero-secondary-cta">See the Operator Tracks ↓</a>
       </div>
+
+      <form class="mini-form fade-up" id="mini-form" novalidate>
+        <div class="mini-form-field">
+          <label for="mini-role">Role</label>
+          <select id="mini-role" name="miniRole">
+            <option value="hirer">A Hiring Team</option>
+            <option value="talent">A Digital Operator (Talent)</option>
+            <option value="partner">A Partner</option>
+          </select>
+        </div>
+        <div class="mini-form-field">
+          <label for="mini-email">Email</label>
+          <input type="email" id="mini-email" name="miniEmail" placeholder="ada@company.ng" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Join</button>
+      </form>
+      <p class="mini-form-error" id="mini-form-error" aria-live="polite"></p>
 
       <p class="hero-microcopy fade-up" id="hero-microcopy">Phased onboarding. We’re moving carefully so your first shortlist is worth your time.</p>
       <p class="hero-helper fade-up" id="hero-helper">For teams hiring across Web, Design, Video, Motion, Marketing Ops, and Data &amp; Automation.</p>
@@ -143,7 +171,8 @@
 <!-- ============================================================
   MINI PROCESS SECTION
   ============================================================ -->
-<section class="process-section section" id="process" aria-label="How it works">
+<div class="section-divider" aria-hidden="true"></div>
+<section class="process-section section section--band" id="process" aria-label="How it works">
   <div class="container">
     <div class="process-header">
       <div class="section-eyebrow" id="process-eyebrow">How It Works</div>
@@ -186,6 +215,7 @@
 <!-- ============================================================
   PROBLEM + SOLUTION
   ============================================================ -->
+<div class="section-divider" aria-hidden="true"></div>
 <section class="problem-section section" id="why" aria-label="Why Workbase exists">
   <div class="container">
     <p class="intro-line" id="problem-intro">You don’t have a talent shortage. You have a filtering problem.</p>
@@ -222,7 +252,8 @@
 <!-- ============================================================
   OPERATOR TRACKS
   ============================================================ -->
-<section class="tracks-section section" id="tracks" aria-label="AI-native operator tracks">
+<div class="section-divider" aria-hidden="true"></div>
+<section class="tracks-section section section--band" id="tracks" aria-label="AI-native operator tracks">
   <div class="container">
     <div class="tracks-header">
       <div class="section-eyebrow">Operator Tracks</div>
@@ -317,6 +348,7 @@
 <!-- ============================================================
   WHY WORKBASE IS DIFFERENT (COMPARISON)
   ============================================================ -->
+<div class="section-divider" aria-hidden="true"></div>
 <section class="comparison-section section" aria-label="Why Workbase is different">
   <div class="container">
     <div class="comparison-header">
@@ -324,27 +356,19 @@
       <h2 class="section-title">Not built for browsing. Built for hiring.</h2>
       <p class="section-subtitle">Traditional marketplaces optimize for listings and activity. Workbase is being built to optimize for signal, fit, and hiring quality.</p>
     </div>
-    <div class="comparison-grid">
-      <div class="comp-col old fade-up">
-        <div class="comp-label">Generic Freelance Marketplaces</div>
-        <ul class="comp-list">
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-no-1"><title id="icon-no-1">Not included</title><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Profile volume without clear signal</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-no-2"><title id="icon-no-2">Not included</title><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Inconsistent standards across candidates</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-no-3"><title id="icon-no-3">Not included</title><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Time-heavy filtering and comparison</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-no-4"><title id="icon-no-4">Not included</title><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Price pressure over quality alignment</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-no-5"><title id="icon-no-5">Not included</title><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Trial-and-error shortlisting</li>
-        </ul>
-      </div>
-      <div class="comp-col new fade-up">
-        <div class="comp-label">Workbase</div>
-        <ul class="comp-list">
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-yes-1"><title id="icon-yes-1">Included</title><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Quality-vetted operator pipeline</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-yes-2"><title id="icon-yes-2">Included</title><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Standards-first intake and screening</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-yes-3"><title id="icon-yes-3">Included</title><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Precision matching for role fit</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-yes-4"><title id="icon-yes-4">Included</title><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Smaller, stronger shortlist</li>
-          <li class="comp-item"><div class="comp-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="icon-yes-5"><title id="icon-yes-5">Included</title><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>A cleaner path to confident hiring</li>
-        </ul>
-      </div>
+    <div class="comparison-grid fade-up">
+      <div class="comp-head comp-head-old">Generic Freelance Marketplaces</div>
+      <div class="comp-head comp-head-new">Workbase</div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Profile volume without clear signal</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Quality-vetted operator pipeline</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Inconsistent standards across candidates</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Standards-first intake and screening</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Time-heavy filtering and comparison</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Precision matching for role fit</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Price pressure over quality alignment</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Smaller, stronger shortlist</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m18 6-12 12M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Trial-and-error shortlisting</span></div>
+      <div class="comp-row"><span class="comp-dot" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>A cleaner path to confident hiring</span></div>
     </div>
     <p class="comparison-closing fade-up">Workbase is not designed to maximize browsing time. It is designed to improve hiring quality.</p>
   </div>
@@ -353,7 +377,8 @@
 <!-- ============================================================
   TRUST / VALIDATION
   ============================================================ -->
-<section class="trust-section section" aria-label="Trust and validation">
+<div class="section-divider" aria-hidden="true"></div>
+<section class="trust-section section section--band" aria-label="Trust and validation">
   <div class="container">
     <div class="trust-header">
       <div class="section-eyebrow">Built on a clear hiring thesis</div>
@@ -363,19 +388,19 @@
     <p class="trust-emphasis" id="trust-emphasis">Built for teams that care about hiring quality, not marketplace volume.</p>
     <div class="trust-grid">
       <div class="trust-card fade-up">
-        <div class="tc-title">Standards before scale</div>
+        <div class="tc-title"><span class="tc-icon" aria-hidden="true">✓</span>Standards before scale</div>
         <p class="tc-body">Workbase prioritizes quality systems before marketplace volume.</p>
       </div>
       <div class="trust-card fade-up">
-        <div class="tc-title">AI-native by standard</div>
+        <div class="tc-title"><span class="tc-icon" aria-hidden="true">⚡</span>AI-native by standard</div>
         <p class="tc-body">Workbase prioritizes operators who can use AI responsibly to improve speed, consistency, and execution quality in their field.</p>
       </div>
       <div class="trust-card fade-up">
-        <div class="tc-title">Built for serious outcomes</div>
+        <div class="tc-title"><span class="tc-icon" aria-hidden="true">◎</span>Built for serious outcomes</div>
         <p class="tc-body">The focus is not traffic or activity. It is better hiring decisions and stronger execution.</p>
       </div>
       <div class="trust-card fade-up">
-        <div class="tc-title">Nigeria-rooted, globally aligned</div>
+        <div class="tc-title"><span class="tc-icon" aria-hidden="true">◌</span>Nigeria-rooted, globally aligned</div>
         <p class="tc-body">Built in Nigeria with a standard designed to support world-class digital work.</p>
       </div>
     </div>
@@ -388,11 +413,13 @@
 <!-- ============================================================
   FAQ
   ============================================================ -->
+<div class="section-divider" aria-hidden="true"></div>
 <section class="faq-section section" id="faq" aria-label="Frequently asked questions">
   <div class="container">
     <div class="faq-header">
       <div class="section-eyebrow">FAQ</div>
       <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-subtitle">Everything you need to know before joining early access.</p>
     </div>
     <div class="faq-list" id="faq-list" role="list">
 
@@ -403,7 +430,8 @@
 <!-- ============================================================
   FINAL CTA + WAITLIST FORM
   ============================================================ -->
-<section class="final-cta section" id="waitlist" aria-label="Join the waitlist">
+<div class="section-divider" aria-hidden="true"></div>
+<section class="final-cta section section--band" id="waitlist" aria-label="Join the waitlist">
   <div class="container">
     <div class="final-cta-inner">
       <!-- Left side: copy -->

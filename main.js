@@ -125,6 +125,7 @@ const FAQ_ITEMS = {
 // ============================================================
 let audienceMode = 'hirer';
 let isAnimating = false;
+const miniFormState = { role: 'hirer', email: '' };
 
 // Submit label helper (role-aware)
 function getSubmitLabel(role) {
@@ -154,6 +155,11 @@ function setAudienceMode(mode, animate = true) {
     const isActive = btn.dataset.mode === mode;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+  document.querySelectorAll('.path-card').forEach(card => {
+    const isActive = card.dataset.mode === mode;
+    card.classList.toggle('active', isActive);
+    card.setAttribute('aria-selected', isActive ? 'true' : 'false');
   });
 
   const duration = (animate && !prefersReducedMotion) ? 0.18 : 0;
@@ -251,6 +257,9 @@ function setAudienceMode(mode, animate = true) {
       roleSelect.value = 'talent';
     }
     updateFormFields(roleSelect.value);
+
+    const miniRole = document.getElementById('mini-role');
+    if (miniRole && (mode === 'hirer' || mode === 'talent')) miniRole.value = mode;
 
     // Update sticky CTA label (mobile)
     const stickyText = document.getElementById('sticky-cta-text');
@@ -368,6 +377,39 @@ function updateFormFields(role) {
 // ============================================================
 // FORM VALIDATION + SUBMIT
 // ============================================================
+function syncMiniToFullForm() {
+  const roleSelect = document.getElementById('field-role');
+  const emailInput = document.getElementById('field-email');
+  if (miniFormState.role && roleSelect) {
+    roleSelect.value = miniFormState.role;
+    updateFormFields(miniFormState.role);
+    if (miniFormState.role === 'hirer' || miniFormState.role === 'talent') {
+      setAudienceMode(miniFormState.role, false);
+    }
+  }
+  if (miniFormState.email && emailInput) emailInput.value = miniFormState.email;
+}
+
+function handleMiniFormSubmit(e) {
+  e.preventDefault();
+  const role = document.getElementById('mini-role');
+  const email = document.getElementById('mini-email');
+  const err = document.getElementById('mini-form-error');
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailVal = email.value.trim();
+  if (!emailRx.test(emailVal)) {
+    err.textContent = 'Please enter a valid email address.';
+    email.classList.add('error');
+    return;
+  }
+  err.textContent = '';
+  email.classList.remove('error');
+  miniFormState.role = role.value;
+  miniFormState.email = emailVal;
+  syncMiniToFullForm();
+  document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function validateForm() {
   let valid = true;
 
@@ -491,8 +533,8 @@ function initHeroAnimation() {
   }
 
   const heroEls = [
-    '#hero-eyebrow', '#hero-headline', '#hero-sub',
-    '#hero-chips', '.hero-actions', '#hero-microcopy', '#hero-helper'
+    '.path-selector-label', '.path-selector', '#hero-eyebrow', '#hero-headline', '#hero-sub',
+    '#hero-chips', '.hero-actions', '#mini-form', '#hero-microcopy', '#hero-helper'
   ].map(s => document.querySelector(s)).filter(Boolean);
 
   gsap.set(heroEls, { opacity: 0, y: 28 });
@@ -520,126 +562,43 @@ function initHeroAnimation() {
 function initScrollAnimations() {
   if (prefersReducedMotion) return;
 
-  // Generic fade-up for .fade-up elements (scroll-triggered)
-  gsap.utils.toArray('.fade-up').forEach(el => {
-    // Skip hero elements (handled separately)
-    if (el.closest('#hero')) return;
-    // Skip cards handled by grid-level animations
-    if (el.closest('.tracks-grid') || el.closest('.trust-grid')) return;
-
-    gsap.fromTo(el,
-      { opacity: 0, y: 28 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.55,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        }
-      }
-    );
-  });
-
-  // Process steps stagger
-  gsap.utils.toArray('#process-steps .process-step').forEach((el, i) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 28 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.5,
-        ease: 'power3.out',
-        delay: i * 0.1,
-        scrollTrigger: {
-          trigger: '#process-steps',
-          start: 'top 82%',
-          toggleActions: 'play none none none',
-        }
-      }
-    );
-  });
-
-  // Mid CTA fade
-  gsap.fromTo('.mid-cta-inner',
-    { opacity: 0, y: 24 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.mid-cta', start: 'top 80%', toggleActions: 'play none none none' }
-    }
-  );
-
-  // Problem visual parallax
-  gsap.to('.problem-visual', {
-    y: -20,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.problem-section',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1.5,
+  gsap.utils.toArray('.section').forEach(section => {
+    const header = section.querySelector('.section-title, .pv-headline, .form-headline');
+    if (header) {
+      gsap.fromTo(header, { opacity: 0, y: 18 }, {
+        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+        scrollTrigger: { trigger: section, start: 'top 82%', once: true }
+      });
     }
   });
 
-  // Comparison columns
-  gsap.fromTo('.comp-col.old',
-    { opacity: 0, x: -32 },
-    {
-      opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '.comparison-grid', start: 'top 82%', toggleActions: 'play none none none' }
-    }
-  );
-  gsap.fromTo('.comp-col.new',
-    { opacity: 0, x: 32 },
-    {
-      opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '.comparison-grid', start: 'top 82%', toggleActions: 'play none none none' }
-    }
-  );
+  const grouped = ['.tracks-grid .track-card', '.trust-grid .trust-card', '#process-steps .process-step', '.solution-blocks .solution-block'];
+  grouped.forEach(sel => {
+    const items = gsap.utils.toArray(sel);
+    if (!items.length) return;
+    gsap.fromTo(items, { opacity: 0, y: 18 }, {
+      opacity: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'power2.out',
+      scrollTrigger: { trigger: items[0].parentElement, start: 'top 82%', once: true }
+    });
+  });
 
-  // Tracks grid reveal (single trigger)
-  const trackCards = gsap.utils.toArray('.tracks-grid .track-card');
-  if (trackCards.length) {
-    gsap.fromTo(trackCards,
-      { opacity: 0, y: 22 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.68,
-        ease: 'power2.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: '.tracks-grid',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-          once: true,
-        }
-      }
-    );
-  }
+  gsap.fromTo('.comparison-grid .comp-head-old, .comparison-grid .comp-row:nth-child(odd)', { opacity: 0, x: -20 }, {
+    opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
+    scrollTrigger: { trigger: '.comparison-grid', start: 'top 82%', once: true }
+  });
+  gsap.fromTo('.comparison-grid .comp-head-new, .comparison-grid .comp-row:nth-child(even)', { opacity: 0, x: 20 }, {
+    opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
+    scrollTrigger: { trigger: '.comparison-grid', start: 'top 82%', once: true }
+  });
+  gsap.fromTo('.comparison-grid .comp-dot', { opacity: 0 }, {
+    opacity: 1, duration: 0.35, stagger: 0.03, delay: 0.12,
+    scrollTrigger: { trigger: '.comparison-grid', start: 'top 82%', once: true }
+  });
 
-  // Trust grid reveal (single trigger)
-  const trustCards = gsap.utils.toArray('.trust-grid .trust-card');
-  if (trustCards.length) {
-    gsap.fromTo(trustCards,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.66,
-        ease: 'power2.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: '.trust-grid',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-          once: true,
-        }
-      }
-    );
-  }
+  gsap.fromTo('.waitlist-form', { opacity: 0, y: 20 }, {
+    opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+    scrollTrigger: { trigger: '.waitlist-form', start: 'top 86%', once: true }
+  });
 }
 
 // ============================================================
@@ -649,14 +608,16 @@ function initStickyCTA() {
   const cta = document.getElementById('sticky-cta');
   const hero = document.getElementById('hero');
   const waitlist = document.getElementById('waitlist');
+  const footer = document.querySelector('.footer');
 
   if (!cta || !hero || !waitlist) return;
 
   let heroVisible = true;
   let waitlistVisible = false;
+  let footerVisible = false;
 
   const syncStickyVisibility = () => {
-    if (waitlistVisible) {
+    if (waitlistVisible || footerVisible) {
       cta.classList.remove('visible');
       return;
     }
@@ -678,8 +639,14 @@ function initStickyCTA() {
     syncStickyVisibility();
   }, { threshold: 0.15 });
 
+  const footerObserver = new IntersectionObserver(([entry]) => {
+    footerVisible = entry.isIntersecting;
+    syncStickyVisibility();
+  }, { threshold: 0.1 });
+
   heroObserver.observe(hero);
   waitlistObserver.observe(waitlist);
+  if (footer) footerObserver.observe(footer);
 }
 
 // ============================================================
@@ -714,6 +681,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.toggle-btn').forEach(btn => {
     btn.addEventListener('click', () => setAudienceMode(btn.dataset.mode));
   });
+  document.querySelectorAll('.path-card').forEach(card => {
+    card.addEventListener('click', () => setAudienceMode(card.dataset.mode));
+  });
 
   // Nav data-toggle links
   document.querySelectorAll('[data-toggle]').forEach(link => {
@@ -745,6 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Form submit
   document.getElementById('waitlist-form').addEventListener('submit', handleSubmit);
+  document.getElementById('mini-form').addEventListener('submit', handleMiniFormSubmit);
 
   // Init animations
   initHeroAnimation();
