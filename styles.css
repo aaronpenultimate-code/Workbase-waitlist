@@ -127,13 +127,17 @@
   }
 
   .icon {
-    width: 20px;
-    height: 20px;
+    width: 1em;
+    height: 1em;
     display: inline-block;
     vertical-align: middle;
     color: currentColor;
     flex-shrink: 0;
   }
+
+  .icon--sm { width: 16px; height: 16px; }
+  .icon--md { width: 24px; height: 24px; }
+  .icon--lg { width: 32px; height: 32px; }
 
   .logo-text {
     font-family: 'DM Serif Display', serif;
@@ -755,19 +759,11 @@
     gap: 8px;
   }
 
-  .sb-title::before {
-    content: '';
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--accent-teal);
-    flex-shrink: 0;
-  }
-
   .sb-desc {
     font-size: 13.5px;
     color: var(--text-secondary);
     line-height: 1.6;
-    padding-left: 15px;
+    padding-left: 32px;
   }
 
   /* ============================================================
@@ -832,10 +828,7 @@
     margin-bottom: 16px;
   }
 
-  .track-icon .icon {
-    width: 22px;
-    height: 22px;
-  }
+  .track-icon .icon { width: 24px; height: 24px; }
 
   .track-badge {
     display: inline-block;
@@ -945,8 +938,8 @@
   }
 
   .comp-dot .icon {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
 
   .comp-col.old .comp-dot { background: #E2E8F0; color: var(--text-muted); }
@@ -1445,9 +1438,9 @@
   }
 
 
-.announcement-bar a .icon { width: 14px; height: 14px; margin-left: 4px; }
+.announcement-bar a .icon { width: 16px; height: 16px; margin-left: 4px; }
 
-.sticky-cta-btn .icon { width: 17px; height: 17px; }
+.sticky-cta-btn .icon { width: 20px; height: 20px; }
 
 /* ===== Conversion-focused redesign overrides ===== */
 .sr-only {
@@ -1548,7 +1541,7 @@
 .trust-card .tc-title { display: flex; align-items: center; gap: 8px; }
 .tc-icon {
   width: 24px; height: 24px; border:1px solid var(--border-soft); border-radius: 999px;
-  display:inline-flex; align-items:center; justify-content:center; color: var(--accent-teal); font-size: 12px;
+  display:inline-flex; align-items:center; justify-content:center; color: var(--accent-teal);
 }
 .tc-body {
   display: -webkit-box;
@@ -1575,6 +1568,8 @@
 }
 .comparison-grid .comp-row:nth-child(2n+3) { background: #fff; }
 .comparison-grid .comp-row:nth-child(2n+4) { background: #0f172a; color: rgba(255,255,255,.88); border-color: rgba(255,255,255,.1); }
+.comparison-grid .comp-row:nth-child(2n+3) .comp-dot { color: var(--text-muted); }
+.comparison-grid .comp-row:nth-child(2n+4) .comp-dot { color: #14b8a6; }
 .comparison-grid .comp-row .comp-dot { margin-top: 0; }
 
 .waitlist-form { padding: 38px; }
