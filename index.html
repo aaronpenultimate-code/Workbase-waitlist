@@ -1608,7 +1608,8 @@
       return;
     }
 
-    const btn = emailEl.closest('.cta-form-wrap').querySelector('.btn-primary');
+    const btn = emailEl.nextElementSibling;
+    const originalText = btn.textContent;
     btn.textContent = '...';
     btn.disabled = true;
 
@@ -1617,7 +1618,7 @@
       document.getElementById(type + '-form-content').style.display = 'none';
       document.getElementById(type + '-success').style.display = 'block';
     } catch (e) {
-      btn.textContent = type === 'hirer' ? 'Join Waitlist' : 'Apply Early';
+      btn.textContent = originalText;
       btn.disabled = false;
       emailEl.style.borderColor = 'rgba(255,80,80,0.5)';
       emailEl.placeholder = 'Something went wrong — try again';
@@ -1635,7 +1636,8 @@
       return;
     }
 
-    const btn = emailEl.closest('.cta-form-wrap').querySelector('.btn-primary');
+    const btn = emailEl.nextElementSibling;
+    const originalText = btn.textContent;
     btn.textContent = '...';
     btn.disabled = true;
 
@@ -1644,7 +1646,7 @@
       document.getElementById('final-' + type + '-form-content').style.display = 'none';
       document.getElementById('final-' + type + '-success').style.display = 'block';
     } catch (e) {
-      btn.textContent = type === 'hirer' ? 'Join Waitlist' : 'Apply Early';
+      btn.textContent = originalText;
       btn.disabled = false;
       emailEl.style.borderColor = 'rgba(255,80,80,0.5)';
       emailEl.placeholder = 'Something went wrong — try again';
